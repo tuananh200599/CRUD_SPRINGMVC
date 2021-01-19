@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Modify Customer</h3>
+<p>
+    <a th:href="@{/list}">
+        Back to customer list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/student/edit}" th:object="${student}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Age</label>
+            <input type="text" th:field="*{age}"/>
+        </div>
+
+        <div>
+            <label>Class</label>
+            <select name="classStudentId">
+                <th:block th:each="item : ${listClass}">
+                    <option th:if="${item.getId()== student.getClassStudentId()}" th:value="${item.getId()}" th:text="${item.getName()}" selected></option>
+                    <option th:unless="${item.getId()== student.getClassStudentId()}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
+                </th:block>
+            </select>
+        </div>
+        <input type="submit" value="Modify"></input>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

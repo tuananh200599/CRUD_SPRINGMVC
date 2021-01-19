@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Modify Book</h3>
+<p>
+    <a th:href="@{/list}">
+        Back to book list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/book/edit}" th:object="${book}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Publisher</label>
+            <input type="text" th:field="*{publisher}"/>
+        </div>
+
+        <div>
+            <label>Author</label>
+            <select name="authorId">
+                <th:block th:each="item : ${listAuthor}">
+                    <option th:if="${item.getId()== book.getAuthorId()}" th:value="${item.getId()}" th:text="${item.getName()}" selected></option>
+                    <option th:unless="${item.getId()== book.getAuthorId()}" th:value="${item.getId()}" th:text="${item.getName()}"></option>
+                </th:block>
+            </select>
+        </div>
+        <input type="submit" value="Modify"></input>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
